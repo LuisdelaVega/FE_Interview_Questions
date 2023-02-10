@@ -1,0 +1,10 @@
+.stop-sign {
+  border: 5px solid;
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+p,
+li {
+  font-size: 18px;
+}
