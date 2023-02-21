@@ -8,7 +8,8 @@ import {
   howManyHaveCollar,
   pipe,
   pipeEs5,
-  reverseString
+  reverseString,
+  logPairs
 } from './answers';
 
 /**
@@ -27,12 +28,12 @@ When given the following input: `[1, 2, 3, 6, 4, 5]`
 the output must be `[1, 2, 3, 6, 4, 5, 1, 2, 3, 6, 4, 5]`
 */
 
-const exampleArray = [1, 2, 3, 6, 4, 5];
+const problem1Array = [1, 2, 3, 6, 4, 5];
 
 // #region YOUR CODE HERE
 // #endregion
 
-console.log(duplicate<number>(exampleArray));
+console.log(duplicate<number>(problem1Array));
 
 /*
 2. Now modify it so that the duplicated array is reversed.
@@ -44,7 +45,7 @@ console.log(duplicate<number>(exampleArray));
 // #region YOUR CODE HERE
 // #endregion
 
-console.log(revDuplicate(exampleArray));
+console.log(revDuplicate(problem1Array));
 
 console.log('--- Problem #2 ---');
 /*
@@ -77,7 +78,7 @@ interface IUsers {
 // #region YOUR CODE HERE
 // #endregion
 
-const input: IUsers[] = [
+const users: IUsers[] = [
   { name: 'Michael', department: 'Engineering' },
   { name: 'John', department: 'Engineering' },
   { name: 'Mark', department: 'Product' },
@@ -86,7 +87,7 @@ const input: IUsers[] = [
   { name: 'Zach', department: 'HR' }
 ];
 
-console.log(groupByKey<IUsers>(input, 'department'));
+console.log(groupByKey<IUsers>(users, 'department'));
 
 console.log('--- Problem #3 ---');
 /*
@@ -130,7 +131,7 @@ export type IAnimal = {
   hasCollar?: boolean;
 };
 
-const data: IAnimal[] = [
+const animalData: IAnimal[] = [
   { type: EAnimalType.dog, value: 3, hasCollar: true },
   { type: EAnimalType.cat, value: 4, hasCollar: true },
   { type: EAnimalType.cat, value: 5, hasCollar: false },
@@ -142,7 +143,7 @@ const data: IAnimal[] = [
 // #region YOUR CODE HERE
 // #endregion
 
-console.log(howManyOfType(data));
+console.log(howManyOfType(animalData));
 
 /*
 2. Now write a similar function but only show the ones
@@ -152,7 +153,7 @@ that have a collar.
 // #region YOUR CODE HERE
 // #endregion
 
-console.log(howManyHaveCollar(data));
+console.log(howManyHaveCollar(animalData));
 
 console.log('--- Problem #5 ---');
 /*
@@ -162,10 +163,10 @@ Repeat until all functions have executed and return the output.
 */
 
 // const addThree = (x: number) => x + 3;
-function addThree(x: number) {
-  return x + 3;
+function addThree(value: number) {
+  return value + 3;
 }
-const getSquareValue = (x: number) => x * x;
+const getSquareValue = (value: number) => value * value;
 
 // #region YOUR CODE HERE
 // #endregion
@@ -202,8 +203,17 @@ Do not use built in reverse capabilities.
 
 console.log(reverseString('FE Interview Questions'));
 
+console.log('--- Problem #7 ---');
+/*
+Write a function that logs all the possible unique pairs of the values in the given array.
+*/
+
+const problem7Array = ['a', 'b', 'c', 'd', 'e'];
+
+logPairs<string>(problem7Array);
+
 setTimeout(() => {
-  console.log('--- Problem #7 ---');
+  console.log('--- Timeout Problem #1 ---');
 }, 900);
 /*
 Closure gotcha questions.

@@ -82,11 +82,13 @@ export const howManyHaveCollar = (data: IAnimal[]) => {
 
 // --- Answer to Problem #5 ---
 
-export const pipe = (...rest: ((x: any) => any)[]) => (value: any) => {
-  return rest.reduce((acc, currVal) => {
-    return currVal(acc);
-  }, value);
-};
+export const pipe =
+  (...rest: ((x: any) => any)[]) =>
+  (value: any) => {
+    return rest.reduce((acc, currVal) => {
+      return currVal(acc);
+    }, value);
+  };
 
 export function pipeEs5() {
   const argArray: ((x: any) => any)[] = Array.from(arguments);
@@ -119,4 +121,15 @@ export const reverseString = (str: string) => {
   }
 
   return strArray.join('');
+};
+
+//
+
+// Best: O(n*m). Worst: basically O(n^2)
+export const logPairs = <T>(arr: T[]) => {
+  // O(n)
+  for (let i = 0; i < arr.length - 1; ++i) {
+    const slicedArr = arr.slice(i + 1);
+    slicedArr.forEach((value) => console.log(arr[i], value)); // O(m)
+  }
 };
