@@ -9,7 +9,9 @@ import {
   pipe,
   pipeEs5,
   reverseString,
-  logPairs
+  logPairs,
+  containsCommonValue,
+  findPairWithSum
 } from './answers';
 
 /**
@@ -210,38 +212,77 @@ Write a function that logs all the possible unique pairs of the values in the gi
 
 const problem7Array = ['a', 'b', 'c', 'd', 'e'];
 
+// #region YOUR CODE HERE
+// #endregion
+
 logPairs<string>(problem7Array);
 
-setTimeout(() => {
-  console.log('--- Timeout Problem #1 ---');
-}, 900);
+console.log('--- Problem #8 ---');
+/*
+Write a function that returns `true` if two arrays contain a common value.
+*/
+
+const problem8Array1: string[] = ['a', 'b', 'c', 'x'];
+const problem8Array2: string[] = ['z', 'y', 'i'];
+const problem8Array3: string[] = ['z', 'y', 'x'];
+
+// #region YOUR CODE HERE
+// #endregion
+
+console.log(containsCommonValue(problem8Array1, problem8Array2)); // False
+console.log(containsCommonValue(problem8Array1, problem8Array3)); // True
+
+console.log('--- Problem #9 ---');
+/*
+Write a function that takes in an array of integers and an integer
+then returns an array with 2 numbers from the input array that add to
+the input integer. If no pair add up to the input integer, return an
+empty array.
+*/
+
+const problem9Array1: number[] = [1, 2, 3, 9];
+const problem9Array2: number[] = [1, 3, 2, 5];
+
+// #region YOUR CODE HERE
+// #endregion
+
+console.log(findPairWithSum(problem9Array1, 8)); // []
+console.log(findPairWithSum(problem9Array2, 8)); // [3, 5]
+
 /*
 Closure gotcha questions.
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
-https://stackoverflow.com/questions/44606868/difference-between-let-and-var-inside-settimeout
-https://stackoverflow.com/questions/111102/how-do-javascript-closures-work
 */
+setTimeout(() => {
+  console.log('--- Timeout Problems ---');
+}, 900);
 
 for (var var1 = 0; var1 < 3; var1++) {
   setTimeout(() => {
-    // 1. Guess what value(s) will be logged by the line below 👇
+    // #1. Guess what value(s) will be logged by the line below 👇
     // console.log('var1', var1);
   }, 1000);
 }
 
 for (let let1 = 0; let1 < 3; let1++) {
   setTimeout(() => {
-    // 2. Guess what value(s) will be logged by the line below 👇
+    // #2. Guess what value(s) will be logged by the line below 👇
     // console.log('let1', let1);
   }, 1000);
 }
 
-// https://developer.mozilla.org/en-US/docs/Glossary/IIFE
 for (var var2 = 0; var2 < 3; var2++) {
   (function (var2) {
     setTimeout(() => {
-      // 3. Guess what value(s) will be logged by the line below 👇
+      // #3. Guess what value(s) will be logged by the line below 👇
       // console.log('var2', var2);
     }, 1000);
   })(var2);
 }
+
+/*
+Resources:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
+https://stackoverflow.com/questions/44606868/difference-between-let-and-var-inside-settimeout
+https://stackoverflow.com/questions/111102/how-do-javascript-closures-work
+https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+*/
