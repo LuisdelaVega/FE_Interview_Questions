@@ -82,11 +82,13 @@ export const howManyHaveCollar = (data: IAnimal[]) => {
 
 // --- Answer to Problem #5 ---
 
-export const pipe = (...rest: ((x: any) => any)[]) => (value: any) => {
-  return rest.reduce((acc, currVal) => {
-    return currVal(acc);
-  }, value);
-};
+export const pipe =
+  (...rest: ((x: any) => any)[]) =>
+  (value: any) => {
+    return rest.reduce((acc, currVal) => {
+      return currVal(acc);
+    }, value);
+  };
 
 export function pipeEs5() {
   const argArray: ((x: any) => any)[] = Array.from(arguments);
@@ -119,4 +121,73 @@ export const reverseString = (str: string) => {
   }
 
   return strArray.join('');
+};
+
+// --- Answer to Problem #7 ---
+
+// Best: O(n*m). Worst: basically O(n^2)
+export const logPairs = <T>(arr: T[]) => {
+  // O(n)
+  for (let i = 0; i < arr.length - 1; ++i) {
+    const slicedArr = arr.slice(i + 1);
+    slicedArr.forEach((value) => console.log(arr[i], value)); // O(m)
+  }
+};
+
+// --- Answer to Problem #8 ---
+
+// More readable, less efficient O(n*m)
+export const containsCommonValue = (arr1: string[], arr2: string[]) =>
+  arr1.some((value) => arr2.includes(value));
+
+// O(n)
+export const containsCommonValueNoArrayFunc = (
+  arr1: string[],
+  arr2: string[]
+) => {
+  const setFromArr1 = new Set(arr1);
+
+  // O(n)
+  for (let value of arr2) {
+    // Set access is O(1)
+    if (setFromArr1.has(value)) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+// O(n+m) = O(n) linear
+export const containsCommonValueNoArrayFuncNoSet = (
+  arr1: string[],
+  arr2: string[]
+) => {
+  const concatArr = [...arr1, ...arr2];
+  concatArr.sort(); // O(n)
+
+  // O(m)
+  for (let index = 0; index < concatArr.length - 2; ++index) {
+    if (concatArr[index] === concatArr[index + 1]) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+// --- Answer to Problem #9 ---
+
+export const findPairWithSum = (arr: number[], sum: number) => {
+  const setFromArr = new Set(arr);
+
+  for (const value of arr) {
+    const difference = sum - value;
+
+    if (setFromArr.has(difference)) {
+      return [value, difference];
+    }
+  }
+
+  return [];
 };

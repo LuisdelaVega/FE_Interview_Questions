@@ -8,7 +8,10 @@ import {
   howManyHaveCollar,
   pipe,
   pipeEs5,
-  reverseString
+  reverseString,
+  logPairs,
+  containsCommonValue,
+  findPairWithSum
 } from './answers';
 
 /**
@@ -27,12 +30,12 @@ When given the following input: `[1, 2, 3, 6, 4, 5]`
 the output must be `[1, 2, 3, 6, 4, 5, 1, 2, 3, 6, 4, 5]`
 */
 
-const exampleArray = [1, 2, 3, 6, 4, 5];
+const problem1Array = [1, 2, 3, 6, 4, 5];
 
 // #region YOUR CODE HERE
 // #endregion
 
-console.log(duplicate<number>(exampleArray));
+console.log(duplicate<number>(problem1Array));
 
 /*
 2. Now modify it so that the duplicated array is reversed.
@@ -44,7 +47,7 @@ console.log(duplicate<number>(exampleArray));
 // #region YOUR CODE HERE
 // #endregion
 
-console.log(revDuplicate(exampleArray));
+console.log(revDuplicate(problem1Array));
 
 console.log('--- Problem #2 ---');
 /*
@@ -77,7 +80,7 @@ interface IUsers {
 // #region YOUR CODE HERE
 // #endregion
 
-const input: IUsers[] = [
+const users: IUsers[] = [
   { name: 'Michael', department: 'Engineering' },
   { name: 'John', department: 'Engineering' },
   { name: 'Mark', department: 'Product' },
@@ -86,7 +89,7 @@ const input: IUsers[] = [
   { name: 'Zach', department: 'HR' }
 ];
 
-console.log(groupByKey<IUsers>(input, 'department'));
+console.log(groupByKey<IUsers>(users, 'department'));
 
 console.log('--- Problem #3 ---');
 /*
@@ -130,7 +133,7 @@ export type IAnimal = {
   hasCollar?: boolean;
 };
 
-const data: IAnimal[] = [
+const animalData: IAnimal[] = [
   { type: EAnimalType.dog, value: 3, hasCollar: true },
   { type: EAnimalType.cat, value: 4, hasCollar: true },
   { type: EAnimalType.cat, value: 5, hasCollar: false },
@@ -142,7 +145,7 @@ const data: IAnimal[] = [
 // #region YOUR CODE HERE
 // #endregion
 
-console.log(howManyOfType(data));
+console.log(howManyOfType(animalData));
 
 /*
 2. Now write a similar function but only show the ones
@@ -152,7 +155,7 @@ that have a collar.
 // #region YOUR CODE HERE
 // #endregion
 
-console.log(howManyHaveCollar(data));
+console.log(howManyHaveCollar(animalData));
 
 console.log('--- Problem #5 ---');
 /*
@@ -162,10 +165,10 @@ Repeat until all functions have executed and return the output.
 */
 
 // const addThree = (x: number) => x + 3;
-function addThree(x: number) {
-  return x + 3;
+function addThree(value: number) {
+  return value + 3;
 }
-const getSquareValue = (x: number) => x * x;
+const getSquareValue = (value: number) => value * value;
 
 // #region YOUR CODE HERE
 // #endregion
@@ -202,36 +205,84 @@ Do not use built in reverse capabilities.
 
 console.log(reverseString('FE Interview Questions'));
 
-setTimeout(() => {
-  console.log('--- Problem #7 ---');
-}, 900);
+console.log('--- Problem #7 ---');
+/*
+Write a function that logs all the possible unique pairs of the values in the given array.
+*/
+
+const problem7Array = ['a', 'b', 'c', 'd', 'e'];
+
+// #region YOUR CODE HERE
+// #endregion
+
+logPairs<string>(problem7Array);
+
+console.log('--- Problem #8 ---');
+/*
+Write a function that returns `true` if two arrays contain a common value.
+*/
+
+const problem8Array1: string[] = ['a', 'b', 'c', 'x'];
+const problem8Array2: string[] = ['z', 'y', 'i'];
+const problem8Array3: string[] = ['z', 'y', 'x'];
+
+// #region YOUR CODE HERE
+// #endregion
+
+console.log(containsCommonValue(problem8Array1, problem8Array2)); // False
+console.log(containsCommonValue(problem8Array1, problem8Array3)); // True
+
+console.log('--- Problem #9 ---');
+/*
+Write a function that takes in an array of integers and an integer
+then returns an array with 2 numbers from the input array that add to
+the input integer. If no pair add up to the input integer, return an
+empty array.
+*/
+
+const problem9Array1: number[] = [1, 2, 3, 9];
+const problem9Array2: number[] = [1, 3, 2, 5];
+
+// #region YOUR CODE HERE
+// #endregion
+
+console.log(findPairWithSum(problem9Array1, 8)); // []
+console.log(findPairWithSum(problem9Array2, 8)); // [3, 5]
+
 /*
 Closure gotcha questions.
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
-https://stackoverflow.com/questions/44606868/difference-between-let-and-var-inside-settimeout
-https://stackoverflow.com/questions/111102/how-do-javascript-closures-work
 */
+setTimeout(() => {
+  console.log('--- Timeout Problems ---');
+}, 900);
 
 for (var var1 = 0; var1 < 3; var1++) {
   setTimeout(() => {
-    // 1. Guess what value(s) will be logged by the line below 👇
+    // #1. Guess what value(s) will be logged by the line below 👇
     // console.log('var1', var1);
   }, 1000);
 }
 
 for (let let1 = 0; let1 < 3; let1++) {
   setTimeout(() => {
-    // 2. Guess what value(s) will be logged by the line below 👇
+    // #2. Guess what value(s) will be logged by the line below 👇
     // console.log('let1', let1);
   }, 1000);
 }
 
-// https://developer.mozilla.org/en-US/docs/Glossary/IIFE
 for (var var2 = 0; var2 < 3; var2++) {
   (function (var2) {
     setTimeout(() => {
-      // 3. Guess what value(s) will be logged by the line below 👇
+      // #3. Guess what value(s) will be logged by the line below 👇
       // console.log('var2', var2);
     }, 1000);
   })(var2);
 }
+
+/*
+Resources:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
+https://stackoverflow.com/questions/44606868/difference-between-let-and-var-inside-settimeout
+https://stackoverflow.com/questions/111102/how-do-javascript-closures-work
+https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+*/
