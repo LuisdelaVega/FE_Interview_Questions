@@ -651,7 +651,7 @@ export class MyArray {
 }
 //#endregion
 
-//#region Hash Table Implementation
+//#region --- Hash Table Implementation ---
 type HashTableData = [string, any];
 export class HashTable {
   data: HashTableData[][];
@@ -701,6 +701,460 @@ export class HashTable {
 
       return acc;
     }, [] as string[]);
+  }
+}
+//#endregion
+
+//#region --- Linked List Implementations ---
+
+// --- Singly ---
+type Node<T> = {
+  value: T;
+  next: Node<T> | undefined;
+};
+export class MyLinkedList<T> {
+  head: Node<T>;
+  tail: Node<T>;
+  length: number;
+  constructor(value: T) {
+    this.head = { value, next: undefined };
+    this.tail = this.head;
+    this.length = 1;
+  }
+
+  private _createNode(value: T, next?: Node<T>): Node<T> {
+    return {
+      value,
+      next
+    };
+  }
+
+  append(value: T): void {
+    const newNode = this._createNode(value);
+    // Tail is referencing the same object as head at this point
+    this.tail.next = newNode;
+    // Change the object that tail references
+    this.tail = newNode;
+    ++this.length;
+  }
+
+  prepend(value: T): void {
+    const newNode = this._createNode(value, this.head);
+    this.head = newNode;
+    ++this.length;
+  }
+
+  printList() {
+    const arr: T[] = [];
+    let currentNode: Node<T> | undefined = this.head;
+
+    while (currentNode) {
+      arr.push(currentNode.value);
+      currentNode = currentNode.next;
+    }
+
+    return arr;
+  }
+
+  /**
+   * Gets the `Node` at a specific index in the Linked List.
+   * If the index is a value less than 0, the `Node` at index 0 (head)
+   * will be returned.
+   *
+   * If the index is a value longer than the length of the Liked List,
+   * the `Node` at the last index (tail) will be returned.
+   * @param index The index of the desired `Node` in the Linked List
+   * @returns The `Node` at the specified index
+   */
+  get(index: number): Node<T> {
+    if (index <= 0) {
+      return this.head;
+    } else if (index >= this.length) {
+      return this.tail;
+    }
+
+    let nodeAtIndex: Node<T> = this.head;
+
+    while (index-- > 0 && nodeAtIndex.next) {
+      nodeAtIndex = nodeAtIndex.next;
+    }
+
+    return nodeAtIndex;
+  }
+
+  insert(value: T, index: number): void {
+    if (index <= 0) {
+      this.prepend(value);
+      return;
+    } else if (index >= this.length) {
+      this.append(value);
+      return;
+    }
+
+    const leftSideNode = this.get(index - 1);
+    const rightSideNode = leftSideNode.next;
+    const newNode = this._createNode(value, rightSideNode);
+    leftSideNode.next = newNode;
+    ++this.length;
+  }
+
+  delete(index: number): void {
+    if (this.length === 1) {
+      return;
+    } else if (index <= 0) {
+      this.head = this.head.next!;
+      --this.length;
+      return;
+    }
+
+    if (index >= this.length) {
+      index = this.length - 1;
+    }
+
+    const leftSideNode = this.get(index - 1);
+    const unwantedNode = leftSideNode.next;
+    const rightSideNode = unwantedNode?.next;
+    leftSideNode.next = rightSideNode;
+
+    if (!rightSideNode) {
+      this.tail = leftSideNode;
+    }
+    --this.length;
+  }
+
+  reverse() {
+    if (this.length === 1) {
+      return;
+    }
+
+    let leftSideNode = this.head;
+    let rightSideNode = leftSideNode.next;
+    leftSideNode.next = undefined;
+
+    // 0 --> 1 --> 2 --> 3 --> 4 --> 5 --> undefined
+    //                     ⬅️ ➡️   ⏲
+    // undefined <-- 0 <-- 1 | 2 --> 3 --> 4 --> 5 --> undefined
+    //                                            ⬅️   ➡️ ⏲
+    // undefined <-- 0 <-- 1 <-- 2 <-- 3 <-- 4 <-- 5 | undefined
+    while (rightSideNode) {
+      let tempNode = rightSideNode.next;
+
+      rightSideNode.next = leftSideNode;
+      leftSideNode = rightSideNode;
+      rightSideNode = tempNode;
+    }
+
+    this.head = leftSideNode;
+  }
+}
+
+// --- Doubly ---
+type DoublyNode<T> = {
+  value: T;
+  next: DoublyNode<T> | undefined;
+  prev: DoublyNode<T> | undefined;
+};
+export class MyDoublyLinkedList<T> {
+  head: DoublyNode<T>;
+  tail: DoublyNode<T>;
+  length: number;
+  constructor(value: T) {
+    this.head = { value, next: undefined, prev: undefined };
+    this.tail = this.head;
+    this.length = 1;
+  }
+
+  private _createNode(
+    value: T,
+    next?: DoublyNode<T>,
+    prev?: DoublyNode<T>
+  ): DoublyNode<T> {
+    return {
+      value,
+      next,
+      prev
+    };
+  }
+
+  append(value: T): void {
+    const newNode = this._createNode(value, undefined, this.tail);
+    // Tail is referencing the same object as head at this point
+    this.tail.next = newNode;
+    // Change the object that tail references
+    this.tail = newNode;
+    ++this.length;
+  }
+
+  prepend(value: T): void {
+    const newNode = this._createNode(value, this.head);
+    this.head.prev = newNode;
+    this.head = newNode;
+    ++this.length;
+  }
+
+  printList() {
+    const arr: T[] = [];
+    let currentNode: DoublyNode<T> | undefined = this.head;
+
+    while (currentNode) {
+      arr.push(currentNode.value);
+      currentNode = currentNode.next;
+    }
+
+    return arr;
+  }
+
+  /**
+   * Gets the `Node` at a specific index in the Linked List.
+   * If the index is a value less than 0, the `Node` at index 0 (head)
+   * will be returned.
+   *
+   * If the index is a value longer than the length of the Liked List,
+   * the `Node` at the last index (tail) will be returned.
+   * @param index The index of the desired `Node` in the Linked List
+   * @returns The `Node` at the specified index
+   */
+  get(index: number): DoublyNode<T> {
+    if (index <= 0) {
+      return this.head;
+    } else if (index >= this.length) {
+      return this.tail;
+    }
+
+    let nodeAtIndex: DoublyNode<T> = this.head;
+    const midPoint = Math.floor(this.length / 2);
+    let direction: keyof DoublyNode<T> = 'next';
+
+    /**
+     * We want to iterate backwards if the index is closer to
+     * the tail than the head.
+     */
+    if (index > midPoint) {
+      nodeAtIndex = this.tail;
+      index = this.length - index;
+      direction = 'prev';
+    }
+
+    while (index-- > 0 && nodeAtIndex[direction]) {
+      nodeAtIndex = nodeAtIndex[direction]!;
+    }
+
+    return nodeAtIndex;
+  }
+
+  insert(value: T, index: number): void {
+    if (index <= 0) {
+      this.prepend(value);
+      return;
+    } else if (index >= this.length) {
+      this.append(value);
+      return;
+    }
+
+    const leftSideNode = this.get(index - 1);
+    const rightSideNode = leftSideNode.next;
+    const newNode = this._createNode(value, rightSideNode, leftSideNode);
+    leftSideNode.next = newNode;
+
+    if (rightSideNode) {
+      rightSideNode.prev = newNode;
+    }
+    ++this.length;
+  }
+
+  delete(index: number): void {
+    if (this.length === 1) {
+      return;
+    } else if (index <= 0) {
+      this.head = this.head.next!;
+      this.head.prev = undefined;
+      --this.length;
+      return;
+    }
+
+    if (index >= this.length) {
+      index = this.length - 1;
+    }
+
+    const leftSideNode = this.get(index - 1);
+    const unwantedNode = leftSideNode.next;
+    const rightSideNode = unwantedNode?.next;
+    leftSideNode.next = rightSideNode;
+    if (rightSideNode) {
+      rightSideNode.prev = leftSideNode;
+    } else {
+      this.tail = leftSideNode;
+    }
+    --this.length;
+  }
+}
+//#endregion
+
+//#region --- Stack Implementation ---
+export class Stack<T> {
+  top: Node<T> | undefined;
+  length: number;
+  constructor() {
+    this.top = undefined;
+    this.length = 0;
+  }
+
+  private _createNode(value: T, next?: Node<T>): Node<T> {
+    return {
+      value,
+      next
+    };
+  }
+
+  peek() {
+    return this.top;
+  }
+
+  push(value: T) {
+    const newNode = this._createNode(value, this.top);
+    this.top = newNode;
+    ++this.length;
+  }
+
+  pop() {
+    if (!this.length) {
+      return undefined;
+    }
+
+    const poppedNode = this.top;
+    this.top = poppedNode?.next;
+    --this.length;
+
+    return poppedNode;
+  }
+}
+//#endregion
+
+//#region --- Queue Implementation ---
+export class Queue<T> {
+  first: Node<T> | undefined;
+  last: Node<T> | undefined;
+  length: number;
+  constructor() {
+    this.first = undefined;
+    this.last = undefined;
+    this.length = 0;
+  }
+
+  private _createNode(value: T, next?: Node<T>): Node<T> {
+    return {
+      value,
+      next
+    };
+  }
+
+  peek() {
+    return this.first;
+  }
+
+  enqueue(value: T) {
+    const newNode = this._createNode(value);
+    if (!this.last) {
+      this.first = newNode;
+      this.last = newNode;
+    } else {
+      this.last.next = newNode;
+      this.last = newNode;
+    }
+
+    ++this.length;
+  }
+
+  dequeue() {
+    if (!this.length) {
+      return undefined;
+    }
+
+    const dequeuedNode = this.first;
+    this.first = dequeuedNode?.next;
+
+    if (!this.first) {
+      this.last = undefined;
+    }
+
+    --this.length;
+
+    return dequeuedNode;
+  }
+}
+
+export class MyQueue {
+  private stack: number[];
+  private queue: number[];
+  constructor() {
+    this.stack = [];
+    this.queue = [];
+  }
+
+  push(x: number): void {
+    if (this.empty()) {
+      this.queue.push(x);
+      return;
+    }
+
+    while (this.queue.length) {
+      this.stack.push(this.queue.pop()!);
+    }
+
+    this.queue.push(x);
+
+    while (this.stack.length) {
+      this.queue.push(this.stack.pop()!);
+    }
+  }
+
+  pop(): number | undefined {
+    return this.queue.pop();
+  }
+
+  peek(): number {
+    return this.queue[this.queue.length - 1];
+  }
+
+  empty(): boolean {
+    return !this.queue.length;
+  }
+}
+
+export class MyQueueOptimized {
+  private stack: number[];
+  private queue: number[];
+  constructor() {
+    this.stack = [];
+    this.queue = [];
+  }
+
+  push(x: number): void {
+    this.stack.push(x);
+  }
+
+  pop(): number | undefined {
+    if (!this.queue.length) {
+      while (this.stack.length) {
+        this.queue.push(this.stack.pop()!);
+      }
+    }
+
+    return this.queue.pop();
+  }
+
+  peek(): number | undefined {
+    if (!this.queue.length) {
+      while (this.stack.length) {
+        this.queue.push(this.stack.pop()!);
+      }
+    }
+
+    return this.queue.at(-1);
+  }
+
+  empty(): boolean {
+    return !this.queue.length && !this.stack.length;
   }
 }
 //#endregion

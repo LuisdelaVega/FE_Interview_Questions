@@ -20,7 +20,12 @@ import {
   MyArray,
   HashTable,
   firstRecurringCharacter,
-  minimumJumps
+  minimumJumps,
+  MyLinkedList,
+  MyDoublyLinkedList,
+  Stack,
+  Queue,
+  MyQueue
 } from './answers';
 
 /**
@@ -512,6 +517,69 @@ console.log(2, minimumJumps(problem16Array2));
 console.log(3, minimumJumps(problem16Array3));
 console.log(1, minimumJumps(problem16Array4));
 
+console.log('--- Problem #17 ---');
+/*
+Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).
+
+Implement the MyQueue class:
+
+    void push(int x) Pushes element x to the back of the queue.
+    int pop() Removes the element from the front of the queue and returns it.
+    int peek() Returns the element at the front of the queue.
+    boolean empty() Returns true if the queue is empty, false otherwise.
+
+Notes:
+
+    You must use only standard operations of a stack, which means only push to top, peek/pop from top, size, and is empty operations are valid.
+    Depending on your language, the stack may not be supported natively. You may simulate a stack using a list or deque (double-ended queue) as long as you use only a stack's standard operations.
+
+
+Example 1:
+
+Input
+["MyQueue", "push", "push", "peek", "pop", "empty"]
+[[], [1], [2], [], [], []]
+Output
+[null, null, null, 1, 1, false]
+
+Explanation
+MyQueue myQueue = new MyQueue();
+myQueue.push(1); // queue is: [1]
+myQueue.push(2); // queue is: [1, 2] (leftmost is front of the queue)
+myQueue.peek(); // return 1
+myQueue.pop(); // return 1, queue is [2]
+myQueue.empty(); // return false
+
+
+Constraints:
+
+    1 <= x <= 9
+    At most 100 calls will be made to push, pop, peek, and empty.
+    All the calls to pop and peek are valid.
+
+
+Follow-up: Can you implement the queue such that each operation is amortized O(1) time complexity? In other words, performing n operations will take overall O(n) time even if one of those operations may take longer.
+*/
+
+// #region YOUR CODE HERE
+// #endregion
+
+const myQueue1 = new MyQueue();
+myQueue1.push(1);
+myQueue1.push(2);
+myQueue1.push(3);
+myQueue1.push(4);
+console.log(1, myQueue1.peek());
+myQueue1.push(5);
+console.log(1, myQueue1.pop());
+myQueue1.push(6);
+console.log(2, myQueue1.pop());
+console.log(3, myQueue1.pop());
+console.log(4, myQueue1.peek());
+console.log(4, myQueue1.pop());
+console.log(5, myQueue1.pop());
+console.log(6, myQueue1.peek());
+
 /* --- Data Structure implementations from scratch --- */
 
 console.log('--- Array ---');
@@ -551,7 +619,88 @@ console.log(undefined, myHashTable.get('oranges'));
 console.log(['grapes', 'apples'], myHashTable.keys());
 console.log(myHashTable);
 
-/* --- Closure gotcha questions --- */
+console.log('--- Linked List ---');
+/*
+Create your own Linked List class
+*/
+
+// #region YOUR CODE HERE
+// #endregion
+
+console.log('--- Singly ---');
+const myLinkedList = new MyLinkedList<number>(2);
+myLinkedList.append(4);
+myLinkedList.append(5);
+myLinkedList.prepend(1);
+myLinkedList.insert(3, 2);
+console.log(myLinkedList);
+console.log([1, 2, 3, 4, 5], myLinkedList.printList());
+myLinkedList.delete(1);
+console.log([1, 3, 4, 5], myLinkedList.printList());
+myLinkedList.delete(12);
+console.log([1, 3, 4], myLinkedList.printList());
+myLinkedList.delete(0);
+console.log([3, 4], myLinkedList.printList());
+myLinkedList.append(5);
+myLinkedList.prepend(1);
+myLinkedList.insert(2, 1);
+console.log([1, 2, 3, 4, 5], myLinkedList.printList());
+myLinkedList.reverse();
+console.log([5, 4, 3, 2, 1], myLinkedList.printList());
+
+console.log('--- Doubly ---');
+const myDoublyLinkedList = new MyDoublyLinkedList<number>(2);
+myDoublyLinkedList.append(4);
+myDoublyLinkedList.append(5);
+myDoublyLinkedList.prepend(1);
+myDoublyLinkedList.insert(3, 2);
+console.log(myDoublyLinkedList);
+console.log([1, 2, 3, 4, 5], myDoublyLinkedList.printList());
+myDoublyLinkedList.delete(1);
+console.log([1, 3, 4, 5], myDoublyLinkedList.printList());
+myDoublyLinkedList.delete(12);
+console.log([1, 3, 4], myDoublyLinkedList.printList());
+myDoublyLinkedList.delete(0);
+console.log([3, 4], myDoublyLinkedList.printList());
+
+console.log('--- Stack ---');
+/*
+Create your own Stack class
+*/
+
+const myStack = new Stack<string>();
+myStack.push('google');
+myStack.push('reddit');
+myStack.push('youtube');
+myStack.pop();
+console.log('reddit', myStack.peek()?.value);
+myStack.pop();
+myStack.pop();
+myStack.pop();
+myStack.push('github');
+console.log(myStack);
+
+/*
+Create your own Stack class
+*/
+
+const myQueue = new Queue<string>();
+myQueue.enqueue('google');
+myQueue.enqueue('reddit');
+myQueue.enqueue('youtube');
+myQueue.dequeue();
+myQueue.dequeue();
+console.log('youtube', myQueue.peek()?.value);
+myQueue.dequeue();
+myQueue.dequeue();
+myQueue.dequeue();
+myQueue.enqueue('github');
+myQueue.enqueue('facebook');
+myQueue.enqueue('twitter');
+myQueue.dequeue();
+console.log(myQueue);
+
+/* --- Gotcha questions --- */
 setTimeout(() => {
   console.log('--- Closure Problems ---');
 }, 900);
@@ -578,6 +727,16 @@ for (var var2 = 0; var2 < 3; var2++) {
     }, 1000);
   })(var2);
 }
+
+/*
+What will be the ouyput for the following lines
+*/
+
+// console.log(2);
+// setInterval(() => {
+//   console.log(1);
+// }, 0);
+// console.log(3);
 
 /*
 Resources:
