@@ -10,7 +10,6 @@ import {
   findPairWithSum,
   mergeSortedArrays,
   maxSubArray,
-  moveZeroesAlt,
   containsDuplicate,
   rotate,
   MyArray,
@@ -38,6 +37,8 @@ import arayDuplication from './problems/Interview Questions/1. Array Duplication
 import groupObjectsByKey from './problems/Interview Questions/2. Group Objects by Key';
 import firstFactorial from './problems/Interview Questions/3. First Factorial';
 import groupObjectsByValue from './problems/Interview Questions/4. Group Objects by Value';
+import moveZeroes from './problems/LeetCode/283. Move Zeroes';
+import twoSum from './problems/LeetCode/167. Two Sum II - Input Array Is Sorted';
 
 /**
  * Clear the console when it on a re-render.
@@ -52,6 +53,8 @@ console.clear();
 // squaresOfASortedArray();
 // rotateArray();
 // reverseString();
+moveZeroes();
+twoSum();
 //#endregion LeetCode Questions
 
 //#region Interview Questions
@@ -210,45 +213,6 @@ const problem11Array3 = [5, 4, -1, 7, 8];
 console.log(6, maxSubArray(problem11Array1));
 console.log(1, maxSubArray(problem11Array2));
 console.log(23, maxSubArray(problem11Array3));
-
-console.log('--- Problem #12 ---');
-/*
-Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
-
-Note that you must do this in-place without making a copy of the array.
-
- 
-Example 1:
-
-Input: nums = [0,1,0,3,12]
-Output: [1,3,12,0,0]
-
-Example 2:
-
-Input: nums = [0]
-Output: [0]
-
-
-Constraints:
-
-    1 <= nums.length <= 104
-    -231 <= nums[i] <= 231 - 1
-
-*/
-
-const problem12Array1 = [0, 1, 0, 3, 12];
-const problem12Array2 = [0];
-const problem12Array3 = [0, 0, 1];
-
-//#region YOUR CODE HERE
-//#endregion
-
-moveZeroesAlt(problem12Array1);
-console.log([1, 3, 12, 0, 0], problem12Array1);
-moveZeroesAlt(problem12Array2);
-console.log([0], problem12Array2);
-moveZeroesAlt(problem12Array3);
-console.log([1, 0, 0], problem12Array3);
 
 console.log('--- Problem #13 ---');
 /*
