@@ -1,85 +1,3 @@
-import { IAnimal } from './index';
-
-// #region --- Answer to Problem #1 ---
-// Part 1
-export function duplicate<T>(param: T[]) {
-  return param.concat(param);
-}
-
-export const duplicateAlt = <T>(param: T[]) => [...param, ...param];
-
-// Part 2
-export const revDuplicate = <T>(param: T[]) => {
-  const arr = [...param]; // alternative -> param.slice(0);
-  arr.reverse();
-
-  return param.concat(arr);
-};
-
-export const revDuplicateAlt = <T>(param: T[]) => [
-  ...param,
-  ...[...param].reverse()
-];
-//#endregion
-
-//#region --- Answer to Problem #2 ---
-export function groupByKey<T>(param: T[], groupKey: keyof T) {
-  return param.reduce((acc, currentValue) => {
-    const dept = currentValue[groupKey];
-
-    if (!acc[dept]) {
-      acc[dept] = [currentValue];
-    } else {
-      acc[dept].push(currentValue);
-    }
-
-    return acc;
-  }, {} as any);
-}
-//#endregion
-
-//#region --- Answer to Problem #3 ---
-export const firstFactorial = (num: number): number => {
-  if (num === 1) {
-    return num;
-  }
-
-  const result = num * firstFactorial(num - 1);
-
-  return result;
-};
-//#endregion
-
-//#region --- Answer to Problem #4 ---
-export const howManyOfType = (data: IAnimal[]) => {
-  return data.reduce((acc, currentVal) => {
-    const { type } = currentVal;
-
-    if (!acc[type]) {
-      acc[type] = 1;
-    } else {
-      acc[type]++;
-    }
-
-    return acc;
-  }, {} as any);
-};
-
-export const howManyHaveCollar = (data: IAnimal[]) => {
-  return data.reduce((acc, currentVal) => {
-    const { type, hasCollar } = currentVal;
-
-    if (!acc[type] && hasCollar) {
-      acc[type] = 1;
-    } else if (acc[type] && hasCollar) {
-      acc[type]++;
-    }
-
-    return acc;
-  }, {} as any);
-};
-//#endregion
-
 //#region --- Answer to Problem #5 ---
 
 export const pipe =
@@ -1155,6 +1073,141 @@ export class MyQueueOptimized {
 
   empty(): boolean {
     return !this.queue.length && !this.stack.length;
+  }
+}
+//#endregion
+
+//#region --- BST Implementation ---
+type BSTNode = {
+  value: number;
+  leftNode: BSTNode | undefined;
+  rightNode: BSTNode | undefined;
+};
+export class BST {
+  root: BSTNode | undefined;
+  constructor() {
+    this.root = undefined;
+  }
+
+  private _createNode(
+    value: number,
+    leftNode?: BSTNode,
+    rightNode?: BSTNode
+  ): BSTNode {
+    return {
+      value,
+      leftNode,
+      rightNode
+    };
+  }
+
+  insert(value: number): void {
+    const newNode = this._createNode(value);
+    if (!this.root) {
+      this.root = newNode;
+      return;
+    }
+
+    /**
+     * Check the value of the root node
+     * IF `value` is less than the value of the root node
+     *    get the left node
+     * ELSE
+     *    get the right node
+     *
+     * IF the node is undefined
+     *    assign it to the new node
+     *
+     * REPEAT
+     */
+
+    let parentNode = this.root;
+
+    while (true) {
+      if (newNode.value === parentNode.value) {
+        return;
+      }
+
+      let nextNodeKey: keyof BSTNode =
+        newNode.value < parentNode.value ? 'leftNode' : 'rightNode';
+      const nextNode = parentNode[nextNodeKey];
+
+      if (!nextNode) {
+        parentNode[nextNodeKey] = newNode;
+        return;
+      }
+
+      parentNode = nextNode;
+    }
+  }
+
+  lookup(value: number): BSTNode | undefined {
+    let currentNode = this.root;
+
+    while (currentNode) {
+      if (currentNode.value === value) {
+        return currentNode;
+      }
+
+      currentNode =
+        value < currentNode.value
+          ? currentNode.leftNode
+          : currentNode.rightNode;
+    }
+
+    return undefined;
+  }
+
+  remove(value: number): void {
+    let parentNode = this.root;
+    if (!parentNode) {
+      return;
+    }
+
+    const nodeToRemove = this.lookup(value);
+    if (!nodeToRemove) {
+      return;
+    }
+
+    while (
+      parentNode.leftNode?.value !== value &&
+      parentNode.rightNode?.value !== value
+    ) {
+      parentNode =
+        value < parentNode.value ? parentNode.leftNode! : parentNode.rightNode!;
+    }
+
+    const nodeSide: keyof BSTNode =
+      parentNode.leftNode?.value === value ? 'leftNode' : 'rightNode';
+
+    let replacementNode = nodeToRemove.rightNode
+      ? nodeToRemove.rightNode
+      : nodeToRemove.leftNode;
+
+    if (!replacementNode) {
+      parentNode[nodeSide] = undefined;
+      return;
+    }
+
+    let replacementNodeParent = nodeToRemove;
+
+    while (replacementNode.leftNode) {
+      replacementNodeParent = replacementNode;
+      replacementNode = replacementNode.leftNode || replacementNode.rightNode;
+    }
+
+    // Start replacing the nodes
+    parentNode[nodeSide] = replacementNode;
+
+    if (replacementNode.value !== nodeToRemove.leftNode?.value) {
+      replacementNode.leftNode = nodeToRemove.leftNode;
+    }
+
+    replacementNodeParent.leftNode = replacementNode.rightNode;
+
+    if (replacementNode.value !== nodeToRemove.rightNode?.value) {
+      replacementNode.rightNode = nodeToRemove.rightNode;
+    }
   }
 }
 //#endregion

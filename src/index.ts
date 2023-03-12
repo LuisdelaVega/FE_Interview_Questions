@@ -1,11 +1,7 @@
+//#region Index
+
 // NOTE: Comment out these imports to add your own answers
 import {
-  duplicate,
-  revDuplicate,
-  groupByKey,
-  firstFactorial,
-  howManyOfType,
-  howManyHaveCollar,
   pipe,
   pipeEs5,
   reverseString,
@@ -25,151 +21,43 @@ import {
   MyDoublyLinkedList,
   Stack,
   Queue,
-  MyQueue
+  MyQueue,
+  BST
 } from './answers';
 
+// LeetCode Questions
+import binarySearch from './problems/leetcode/704. Binary Search';
+import firstBadVersion from './problems/leetcode/278. First Bad Version';
+import searchIndexPosition from './problems/leetcode/35. Search Insert Position';
+import squaresOfASortedArray from './problems/leetcode/977. Squares of a Sorted Array';
+import rotateArray from './problems/leetcode/189. Rotate Array';
+
+// Interview Questions
+import arayDuplication from './problems/Interview Questions/1. Array Duplication';
+import groupObjectsByKey from './problems/Interview Questions/2. Group Objects by Key';
+import firstFactorial from './problems/Interview Questions/3. First Factorial';
+import groupObjectsByValue from './problems/Interview Questions/4. Group Objects by Value';
+
 /**
- * CodeSandbox doesn't clear the console when it
- * re-renders. This makes the answers more readable.
+ * Clear the console when it on a re-render.
+ * This makes the console more readable.
  */
 console.clear();
 
-// Interview questions start below 👇
+//#region LeetCode Questions
+// binarySearch();
+// firstBadVersion();
+// searchIndexPosition();
+// squaresOfASortedArray();
+rotateArray();
+//#endregion LeetCode Questions
 
-console.log('--- Problem #1 ---');
-/*
-1. Write a function that takes in an array and duplicates it
-
-When given the following input: `[1, 2, 3, 6, 4, 5]`
-the output must be `[1, 2, 3, 6, 4, 5, 1, 2, 3, 6, 4, 5]`
-*/
-
-const problem1Array = [1, 2, 3, 6, 4, 5];
-
-// #region YOUR CODE HERE
-// #endregion
-
-console.log(duplicate<number>(problem1Array));
-
-/*
-2. Now modify it so that the duplicated array is reversed.
-
-- input: `[1, 2, 3, 6, 4, 5]`
-- output: `[1, 2, 3, 6, 4, 5, 5, 4, 6, 3, 2, 1]`
-*/
-
-// #region YOUR CODE HERE
-// #endregion
-
-console.log(revDuplicate(problem1Array));
-
-console.log('--- Problem #2 ---');
-/*
-Write a function that groups an array of objects by a specified key
-
-const input = [
-  { name: 'Michael', department: 'Engineering' },
-  { name: 'John', department: 'Engineering' },
-  { name: 'Mark', department: 'Product' }
-];
-
-console.log(groupByKey(input, 'department'))
-👇
-{
-  "Engineering": [
-      { "name": "Michael", "department": "Engineering"},
-      { "name": "John", "department": "Engineering" }
-  ],
-  "Product": [
-      { "name": "Mark", "department": "Product" }
-  ]
-}
-*/
-
-interface IUsers {
-  name: string;
-  department: string;
-}
-
-// #region YOUR CODE HERE
-// #endregion
-
-const users: IUsers[] = [
-  { name: 'Michael', department: 'Engineering' },
-  { name: 'John', department: 'Engineering' },
-  { name: 'Mark', department: 'Product' },
-  { name: 'Jack', department: 'HR' },
-  { name: 'Jill', department: 'HR' },
-  { name: 'Zach', department: 'HR' }
-];
-
-console.log(groupByKey<IUsers>(users, 'department'));
-
-console.log('--- Problem #3 ---');
-/*
-First Factorial
-
-Have the function `FirstFactorial(num)` take the `num` parameter being passed and return the factorial of it.
-For example: if `num = 4`, then your program should return `(4 * 3 * 2 * 1) = 24`.
-The input will always be an integer.
-
-Examples:
-
-Input: 4
-Output: 24
-
-Input: 8
-Output: 40320
-*/
-
-// #region YOUR CODE HERE
-// #endregion
-
-console.log(firstFactorial(8));
-
-console.log('--- Problem #4 ---');
-/*
-1. Write a function that takes in the `data` array below 
-and returns an object whose key value pair represent the
-animal types and how many of each type of animal are in
-the array.
-*/
-
-enum EAnimalType {
-  dog = 'dog',
-  cat = 'cat',
-  bat = 'bat'
-}
-
-export type IAnimal = {
-  type: EAnimalType;
-  value: number;
-  hasCollar?: boolean;
-};
-
-const animalData: IAnimal[] = [
-  { type: EAnimalType.dog, value: 3, hasCollar: true },
-  { type: EAnimalType.cat, value: 4, hasCollar: true },
-  { type: EAnimalType.cat, value: 5, hasCollar: false },
-  { type: EAnimalType.cat, value: 6, hasCollar: true },
-  { type: EAnimalType.bat, value: 1 },
-  { type: EAnimalType.bat, value: 2 }
-];
-
-// #region YOUR CODE HERE
-// #endregion
-
-console.log(howManyOfType(animalData));
-
-/*
-2. Now write a similar function but only show the ones
-that have a collar.
-*/
-
-// #region YOUR CODE HERE
-// #endregion
-
-console.log(howManyHaveCollar(animalData));
+//#region Interview Questions
+// arayDuplication();
+// groupObjectsByKey();
+// firstFactorial();
+// groupObjectsByValue();
+//#endregion Interview Questions
 
 console.log('--- Problem #5 ---');
 /*
@@ -184,8 +72,8 @@ function addThree(value: number) {
 }
 const getSquareValue = (value: number) => value * value;
 
-// #region YOUR CODE HERE
-// #endregion
+//#region YOUR CODE HERE
+//#endregion
 
 const addThreeThenSquare = pipe(addThree, getSquareValue);
 console.log(addThreeThenSquare(6));
@@ -201,8 +89,8 @@ function pipeEs5() {
 ```
 */
 
-// #region YOUR CODE HERE
-// #endregion
+//#region YOUR CODE HERE
+//#endregion
 
 // @ts-expect-error
 const addThreeThenSquareEs5 = pipeEs5(addThree, getSquareValue);
@@ -214,8 +102,8 @@ Write a function that reverses a string from scratch.
 Do not use built in reverse or sorting capabilities.
 */
 
-// #region YOUR CODE HERE
-// #endregion
+//#region YOUR CODE HERE
+//#endregion
 
 console.log(reverseString('FE Interview Questions'));
 
@@ -226,8 +114,8 @@ Write a function that logs all the possible unique pairs of the values in the gi
 
 const problem7Array = ['a', 'b', 'c', 'd', 'e'];
 
-// #region YOUR CODE HERE
-// #endregion
+//#region YOUR CODE HERE
+//#endregion
 
 logPairs<string>(problem7Array);
 
@@ -240,8 +128,8 @@ const problem8Array1: string[] = ['a', 'b', 'c', 'x'];
 const problem8Array2: string[] = ['z', 'y', 'i'];
 const problem8Array3: string[] = ['z', 'y', 'x'];
 
-// #region YOUR CODE HERE
-// #endregion
+//#region YOUR CODE HERE
+//#endregion
 
 console.log(containsCommonValue(problem8Array1, problem8Array2)); // False
 console.log(containsCommonValue(problem8Array1, problem8Array3)); // True
@@ -257,8 +145,8 @@ empty array.
 const problem9Array1: number[] = [1, 2, 3, 9];
 const problem9Array2: number[] = [1, 3, 2, 5];
 
-// #region YOUR CODE HERE
-// #endregion
+//#region YOUR CODE HERE
+//#endregion
 
 console.log(findPairWithSum(problem9Array1, 8)); // []
 console.log(findPairWithSum(problem9Array2, 8)); // [3, 5]
@@ -273,8 +161,8 @@ sorted.
 const problem10Array1: number[] = [0, 3, 4, 31];
 const problem10Array2: number[] = [4, 6, 30];
 
-// #region YOUR CODE HERE
-// #endregion
+//#region YOUR CODE HERE
+//#endregion
 
 console.log(
   [0, 3, 4, 4, 6, 30, 31],
@@ -314,8 +202,8 @@ const problem11Array1 = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
 const problem11Array2 = [1];
 const problem11Array3 = [5, 4, -1, 7, 8];
 
-// #region YOUR CODE HERE
-// #endregion
+//#region YOUR CODE HERE
+//#endregion
 
 console.log(6, maxSubArray(problem11Array1));
 console.log(1, maxSubArray(problem11Array2));
@@ -350,8 +238,8 @@ const problem12Array1 = [0, 1, 0, 3, 12];
 const problem12Array2 = [0];
 const problem12Array3 = [0, 0, 1];
 
-// #region YOUR CODE HERE
-// #endregion
+//#region YOUR CODE HERE
+//#endregion
 
 moveZeroesAlt(problem12Array1);
 console.log([1, 3, 12, 0, 0], problem12Array1);
@@ -391,8 +279,8 @@ const problem13Array1 = [1, 2, 3, 1];
 const problem13Array2 = [1, 2, 3, 4];
 const problem13Array3 = [1, 1, 1, 3, 3, 4, 3, 2, 4, 2];
 
-// #region YOUR CODE HERE
-// #endregion
+//#region YOUR CODE HERE
+//#endregion
 
 console.log(true, containsDuplicate(problem13Array1));
 console.log(false, containsDuplicate(problem13Array2));
@@ -440,8 +328,8 @@ const problem14Array3 = [1, 2];
 const problem14Array4 = [1, 2];
 const problem14Array5 = [1, 2, 3];
 
-// #region YOUR CODE HERE
-// #endregion
+//#region YOUR CODE HERE
+//#endregion
 
 rotate(problem14Array1, 3);
 console.log([5, 6, 7, 1, 2, 3, 4], problem14Array1);
@@ -465,8 +353,8 @@ const problem15Array2 = [2, 1, 1, 2, 3, 5, 1, 2, 4];
 const problem15Array3 = [2, 5, 5, 2, 3, 5, 1, 2, 4];
 const problem15Array4 = [2, 3, 4, 5];
 
-// #region YOUR CODE HERE
-// #endregion
+//#region YOUR CODE HERE
+//#endregion
 
 console.log(2, firstRecurringCharacter(problem15Array1));
 console.log(1, firstRecurringCharacter(problem15Array2));
@@ -509,8 +397,8 @@ const problem16Array2 = [2, 3, 0, 1, 4];
 const problem16Array3 = [2, 4, 4, 1, 3, 3, 1, 1, 1];
 const problem16Array4 = [5, 1];
 
-// #region YOUR CODE HERE
-// #endregion
+//#region YOUR CODE HERE
+//#endregion
 
 console.log(2, minimumJumps(problem16Array1));
 console.log(2, minimumJumps(problem16Array2));
@@ -561,8 +449,8 @@ Constraints:
 Follow-up: Can you implement the queue such that each operation is amortized O(1) time complexity? In other words, performing n operations will take overall O(n) time even if one of those operations may take longer.
 */
 
-// #region YOUR CODE HERE
-// #endregion
+//#region YOUR CODE HERE
+//#endregion
 
 const myQueue1 = new MyQueue();
 myQueue1.push(1);
@@ -587,8 +475,8 @@ console.log('--- Array ---');
 Create your own Array class
 */
 
-// #region YOUR CODE HERE
-// #endregion
+//#region YOUR CODE HERE
+//#endregion
 
 const myArray = new MyArray();
 myArray.push('0');
@@ -606,8 +494,8 @@ console.log('--- Hash Table ---');
 Create your own Hash Table class
 */
 
-// #region YOUR CODE HERE
-// #endregion
+//#region YOUR CODE HERE
+//#endregion
 
 const myHashTable = new HashTable(50);
 myHashTable.set('grapes', 10000);
@@ -624,8 +512,8 @@ console.log('--- Linked List ---');
 Create your own Linked List class
 */
 
-// #region YOUR CODE HERE
-// #endregion
+//#region YOUR CODE HERE
+//#endregion
 
 console.log('--- Singly ---');
 const myLinkedList = new MyLinkedList<number>(2);
@@ -680,8 +568,9 @@ myStack.pop();
 myStack.push('github');
 console.log(myStack);
 
+console.log('--- Queue ---');
 /*
-Create your own Stack class
+Create your own Queue class
 */
 
 const myQueue = new Queue<string>();
@@ -699,6 +588,33 @@ myQueue.enqueue('facebook');
 myQueue.enqueue('twitter');
 myQueue.dequeue();
 console.log(myQueue);
+
+console.log('--- Binary Search Tree ---');
+/*
+Create your own BST class
+*/
+
+const myBST = new BST();
+myBST.insert(50);
+myBST.insert(25);
+myBST.insert(75);
+myBST.insert(12);
+myBST.insert(37);
+console.log(myBST.lookup(25));
+console.log(myBST.lookup(200));
+myBST.insert(30);
+myBST.insert(40);
+myBST.insert(27);
+myBST.insert(32);
+myBST.insert(38);
+myBST.insert(45);
+myBST.insert(28);
+myBST.insert(34);
+myBST.remove(25);
+myBST.insert(74);
+myBST.remove(75);
+myBST.remove(40);
+console.log(myBST);
 
 /* --- Gotcha questions --- */
 setTimeout(() => {
@@ -745,3 +661,4 @@ https://stackoverflow.com/questions/44606868/difference-between-let-and-var-insi
 https://stackoverflow.com/questions/111102/how-do-javascript-closures-work
 https://developer.mozilla.org/en-US/docs/Glossary/IIFE
 */
+//#endregion
