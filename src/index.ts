@@ -2,9 +2,6 @@
 
 // NOTE: Comment out these imports to add your own answers
 import {
-  pipe,
-  pipeEs5,
-  // reverseString,
   logPairs,
   containsCommonValue,
   findPairWithSum,
@@ -31,14 +28,17 @@ import searchIndexPosition from './problems/LeetCode/35. Search Insert Position'
 import squaresOfASortedArray from './problems/LeetCode/977. Squares of a Sorted Array';
 import rotateArray from './problems/LeetCode/189. Rotate Array';
 import reverseString from './problems/LeetCode/344. Reverse String';
+import moveZeroes from './problems/LeetCode/283. Move Zeroes';
+import twoSum from './problems/LeetCode/167. Two Sum II - Input Array Is Sorted';
+import middleNode from './problems/LeetCode/876. Middle of the Linked List';
+import removeNthFromEnd from './problems/LeetCode/19. Remove Nth Node From End of List';
 
 // Interview Questions
 import arayDuplication from './problems/Interview Questions/1. Array Duplication';
 import groupObjectsByKey from './problems/Interview Questions/2. Group Objects by Key';
 import firstFactorial from './problems/Interview Questions/3. First Factorial';
 import groupObjectsByValue from './problems/Interview Questions/4. Group Objects by Value';
-import moveZeroes from './problems/LeetCode/283. Move Zeroes';
-import twoSum from './problems/LeetCode/167. Two Sum II - Input Array Is Sorted';
+import pipe from './problems/Interview Questions/5. Pipe Function';
 
 /**
  * Clear the console when it on a re-render.
@@ -47,70 +47,25 @@ import twoSum from './problems/LeetCode/167. Two Sum II - Input Array Is Sorted'
 console.clear();
 
 //#region LeetCode Questions
-// binarySearch();
-// firstBadVersion();
-// searchIndexPosition();
-// squaresOfASortedArray();
-// rotateArray();
-// reverseString();
+binarySearch();
+firstBadVersion();
+searchIndexPosition();
+squaresOfASortedArray();
+rotateArray();
+reverseString();
 moveZeroes();
 twoSum();
+middleNode();
+removeNthFromEnd();
 //#endregion LeetCode Questions
 
 //#region Interview Questions
-// arayDuplication();
-// groupObjectsByKey();
-// firstFactorial();
-// groupObjectsByValue();
+arayDuplication();
+groupObjectsByKey();
+firstFactorial();
+groupObjectsByValue();
+pipe();
 //#endregion Interview Questions
-
-console.log('--- Problem #5 ---');
-/*
-1. Write a function (pipe) that takes in any number of functions
-and passes in the output of the previous one into the next one.
-Repeat until all functions have executed and return the output.
-*/
-
-// const addThree = (x: number) => x + 3;
-function addThree(value: number) {
-  return value + 3;
-}
-const getSquareValue = (value: number) => value * value;
-
-//#region YOUR CODE HERE
-//#endregion
-
-const addThreeThenSquare = pipe(addThree, getSquareValue);
-console.log(addThreeThenSquare(6));
-
-/*
-2. (Optional) Can you write it as a function with a signature that
-has no required arguments. Like so:
-
-```
-function pipeEs5() {
-  // YOUR CODE HERE
-}
-```
-*/
-
-//#region YOUR CODE HERE
-//#endregion
-
-// @ts-expect-error
-const addThreeThenSquareEs5 = pipeEs5(addThree, getSquareValue);
-console.log(addThreeThenSquareEs5(6));
-
-console.log('--- Problem #6 ---');
-/*
-Write a function that reverses a string from scratch.
-Do not use built in reverse or sorting capabilities.
-*/
-
-//#region YOUR CODE HERE
-//#endregion
-
-// console.log(reverseString('FE Interview Questions'));
 
 console.log('--- Problem #7 ---');
 /*

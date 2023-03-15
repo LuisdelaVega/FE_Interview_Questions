@@ -1,7 +1,7 @@
-import { pipe, pipeEs5 } from './answer';
+import { pipe, pipeAlt } from './answer';
 
 const question = () => {
-  console.log('--- Problem #5 ---');
+  console.log('--- Problem #5: Pipe Function ---');
   /*
   1. Write a function (pipe) that takes in any number of functions
   and passes in the output of the previous one into the next one.
@@ -25,7 +25,7 @@ const question = () => {
   has no required arguments. Like so:
 
     ```
-    function pipeEs5() {
+    function pipeAlt() {
       // YOUR CODE HERE
     }
     ```
@@ -35,7 +35,7 @@ const question = () => {
   //#endregion
 
   // @ts-expect-error
-  const addThreeThenSquareEs5 = pipeEs5(addThree, getSquareValue);
+  const addThreeThenSquareEs5 = pipeAlt(addThree, getSquareValue);
   console.log(addThreeThenSquareEs5(6));
 };
 

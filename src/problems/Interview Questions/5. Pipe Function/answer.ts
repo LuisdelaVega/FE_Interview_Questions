@@ -6,7 +6,7 @@ export const pipe =
     }, value);
   };
 
-export function pipeEs5() {
+export function pipeAlt() {
   const argArray: ((x: any) => any)[] = Array.from(arguments);
 
   return function (value: any) {
